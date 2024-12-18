@@ -100,7 +100,7 @@ def criar_admin():
 def load_user(user_id):
     return Usuario.query.get(int(user_id))
 
-@app.route('/Home') #Rota para pagina inicial (index.html)
+@app.route('/') #Rota para pagina inicial (index.html)
 @login_required
 def Home():
     return render_template('index.html')
@@ -152,7 +152,7 @@ def Entrar():
     
     return render_template('Entrar.html')
 
-@app.route('/', methods=["GET", "POST"])  # Rota para cadastrar usuário (Cadastrar.html)
+@app.route('/Cadastro', methods=["GET", "POST"])  # Rota para cadastrar usuário (Cadastrar.html)
 def Cadastrar():
     if current_user.is_authenticated:
         return redirect(url_for('Home'))
