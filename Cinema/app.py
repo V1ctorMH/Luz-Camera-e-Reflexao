@@ -101,7 +101,6 @@ def load_user(user_id):
     return Usuario.query.get(int(user_id))
 
 @app.route('/') #Rota para pagina inicial (index.html)
-@login_required
 def Home():
     return render_template('index.html')
 
