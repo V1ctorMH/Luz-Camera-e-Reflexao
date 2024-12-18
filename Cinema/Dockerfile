@@ -1,19 +1,17 @@
-FROM python:3.12
+# Usar a imagem oficial do Python 3.12
+FROM python:3.12.7
 
-# Instalar as dependências
-RUN apt-get update && apt-get install -y python3-pip
-
-# Definir diretório de trabalho
+# Definir o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copiar o arquivo de dependências
-COPY requirements.txt .
+# Copiar todos os arquivos da aplicação para o diretório de trabalho no container
+COPY . /app
 
-# Instalar as dependências
-RUN pip install -r requirements.txt
+# Instalar as dependências a partir do arquivo requirements.txt
+RUN pip install --no-cache-dir -r Cinema/requirements.txt
 
-# Copiar o restante dos arquivos da aplicação
-COPY . .
+# Expor a porta em que o Flask vai rodar
+EXPOSE 5000
 
-# Definir o comando de execução
-CMD ["python", "app.py"]
+# Definir o comando para rodar o servidor Gunicorn
+CMD ["gunicorn", "Cinema.app:app"]
